@@ -4,6 +4,8 @@
 
 <script>
 export default {
-    
-}
+    mounted() {
+        axios.get("another");
+    }
+};
 </script>

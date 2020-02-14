@@ -9,8 +9,8 @@ const appMode = type =>
         local: ""
     }[type]);
 
-axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.baseURL = appMode("test");
+axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.headers.post["Content-Type"] = "application/json";
 
 export default function setup() {
