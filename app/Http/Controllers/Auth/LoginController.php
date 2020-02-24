@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\User;
+use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -17,7 +20,7 @@ class LoginController extends Controller
     | redirecting them to your home screen. The controller uses a trait
     | to conveniently provide its functionality to your applications.
     |
-    */
+     */
 
     use AuthenticatesUsers;
 
@@ -36,5 +39,25 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function login(Request $request)
+    {
+        if (Auth::attempt(['email' => request('email'), 'password' => request('password')])) {
+            return $this->success('email', $request->email);
+        } else {
+            return response()->json(['error' => 'Invalid Username or Password.'], 401);
+        }
+    }
+
+    public function success($field, $value)
+    {
+        $request = app()->make('request');
+        $user = User::where($field, $value)->first();
+        $success['token'] = $user->createToken('MyApp')->accessToken;
+        return response()->json([
+            'success' => $success,
+            'user' => $user,
+        ]);
     }
 }
