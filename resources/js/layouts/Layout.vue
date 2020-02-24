@@ -16,10 +16,6 @@ import { mapActions } from "vuex";
 export default {
     methods: {
         ...mapActions("users", ["setToken"])
-    },
-    mounted() {
-        this.setToken("fff");
-        axios.get("/example");
     }
 };
 </script>
