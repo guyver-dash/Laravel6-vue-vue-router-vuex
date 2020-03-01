@@ -53743,26 +53743,19 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-// Vue.component(
-//     "example-component",
-//     require("./components/ExampleComponent.vue").default
-// );
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
+_router_index_js__WEBPACK_IMPORTED_MODULE_0__["default"].beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.needAuth;
+  })) {
+    if (!_store_index_js__WEBPACK_IMPORTED_MODULE_1__["default"].getters["users/token"]) {
+      next("/login");
+    } else {
+      next();
+    }
+  } else {
+    next(); // make sure to always call next()!
+  }
+});
 Object(_boot_axios__WEBPACK_IMPORTED_MODULE_2__["default"])();
 var app = new Vue({
   el: "#app",
@@ -54207,7 +54200,10 @@ var routes = [{
   // when /user/:id/profile is matched
   {
     path: "profile",
-    component: _pages_userProfile__WEBPACK_IMPORTED_MODULE_2__["default"]
+    component: _pages_userProfile__WEBPACK_IMPORTED_MODULE_2__["default"],
+    meta: {
+      needAuth: true
+    }
   }, // UserPosts will be rendered inside User's <router-view>
   // when /user/:id/posts is matched
   {
@@ -54445,7 +54441,7 @@ var setToken = function setToken(state, payload) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  token: "asdf"
+  token: null
 });
 
 /***/ }),

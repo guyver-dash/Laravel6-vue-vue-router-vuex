@@ -1,3 +1,3 @@
 export default {
-    token: "asdf"
+    token: null
 };

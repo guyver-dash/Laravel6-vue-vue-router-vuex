@@ -20,7 +20,11 @@ const routes = [
 
             // UserProfile will be rendered inside User's <router-view>
             // when /user/:id/profile is matched
-            { path: "profile", component: UserProfile },
+            {
+                path: "profile",
+                component: UserProfile,
+                meta: { needAuth: true }
+            },
 
             // UserPosts will be rendered inside User's <router-view>
             // when /user/:id/posts is matched
